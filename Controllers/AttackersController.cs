@@ -49,15 +49,26 @@ namespace IronDomeV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name")] Attacker attacker)
+        public async Task<IActionResult> Create([Bind("Name")] Attacker attacker)
         {
-            if (ModelState.IsValid)
+
+            var errMsg = attacker switch
             {
-                _context.Add(attacker);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                { Name: null } => "Name is required",
+                { Distance: < 0 } => "Distance must be greater than or equal to 0",
+                { Name: string name } when _context.Attacker.Any(a => a.Name == name) => "Attacker already exists",
+                _ => null
+            };
+
+            if (errMsg != null)
+            {
+                ModelState.AddModelError("Name", errMsg);
+                return View();
             }
-            return View(attacker);
+
+            _context.Add(attacker);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Attackers/Edit/5
@@ -81,34 +92,32 @@ namespace IronDomeV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Attacker attacker)
+        public async Task<IActionResult> Edit(int id, [Bind("Id, Name, Distance")] Attacker attacker)
         {
             if (id != attacker.Id)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            var errMsg = attacker switch
             {
-                try
-                {
-                    _context.Update(attacker);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!AttackerExists(attacker.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                { Name: null } => "Name is required",
+                { Distance: < 0 } => "Distance must be greater than or equal to 0",
+                { Name: string name } when _context.Attacker.Any(a => a.Name == name && a.Id != attacker.Id) => "Attacker with this name already exists",
+                _ when _context.Attacker.Any(e => e.Id == id) == false => "Attacker does not exist",
+                _ => null
+            };
+
+            if (errMsg != null)
+            {
+                ModelState.AddModelError("Name", errMsg);
+                return View(attacker); // Pass the model back to the view
             }
-            return View(attacker);
+
+            _context.Update(attacker);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Attackers/Delete/5
@@ -142,11 +151,6 @@ namespace IronDomeV2.Controllers
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool AttackerExists(int id)
-        {
-            return _context.Attacker.Any(e => e.Id == id);
         }
     }
 }

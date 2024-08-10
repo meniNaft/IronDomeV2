@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IronDomeV2.Models;
 
+[Index(nameof(Name), IsUnique = true)]
 public class MethodOfAttack
 {
     public int Id { get; set; }
@@ -16,7 +18,7 @@ public class MethodOfAttack
     public Volley Volley { get; set; }
 
     // Navigation property for countermeasure
-    public Countermeasure Countermeasure { get; set; }
+    public Countermeasure? Countermeasure { get; set; }
 
     // Computed property to calculate time to destination
     [NotMapped]
