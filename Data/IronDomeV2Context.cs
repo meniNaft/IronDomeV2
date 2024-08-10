@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using IronDomeV2.Models;
+
+namespace IronDomeV2.Data
+{
+    public class IronDomeV2Context : DbContext
+    {
+        public IronDomeV2Context (DbContextOptions<IronDomeV2Context> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<IronDomeV2.Models.Attacker> Attacker { get; set; } = default!;
+    }
+}
