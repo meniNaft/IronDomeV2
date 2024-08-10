@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using IronDomeV2.Data;
 namespace IronDomeV2
 {
@@ -8,6 +7,10 @@ namespace IronDomeV2
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            // Add SignalR services
+            builder.Services.AddSignalR();
+
             builder.Services.AddDbContext<IronDomeV2Context>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("IronDomeV2Context") ?? throw new InvalidOperationException("Connection string 'IronDomeV2Context' not found.")));
 
@@ -30,6 +33,9 @@ namespace IronDomeV2
             app.UseRouting();
 
             app.UseAuthorization();
+
+            // Map SignalR hubs.
+            app.MapHub<ChatHub>("/chathub");
 
             app.MapControllerRoute(
                 name: "default",
