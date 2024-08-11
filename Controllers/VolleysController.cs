@@ -46,9 +46,10 @@ namespace IronDomeV2.Controllers
         }
 
         // GET: Volleys/Create
-        public IActionResult Create()
+        public IActionResult Create(int? id)
         {
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Id");
+            ViewData["AttackerId"] =  _context.Attacker.First(a => a.Id == id);
+
             return View();
         }
 

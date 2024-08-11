@@ -5,6 +5,6 @@ namespace IronDomeV2.ViewModel
     public class VMVolley
     {
         public int AttackerId { get; set; }
-        public IEnumerable<MethodOfAttack> MethodsOfAttack { get; set; }
+        public List<VMMetodInVolley> MetodInVolley { get; set; }
     }
 }
