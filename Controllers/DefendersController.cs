@@ -10,23 +10,22 @@ using IronDomeV2.Models;
 
 namespace IronDomeV2.Controllers
 {
-    public class VolleysController : Controller
+    public class DefendersController : Controller
     {
         private readonly IronDomeV2Context _context;
 
-        public VolleysController(IronDomeV2Context context)
+        public DefendersController(IronDomeV2Context context)
         {
             _context = context;
         }
 
-        // GET: Volleys
+        // GET: Defenders
         public async Task<IActionResult> Index()
         {
-            var ironDomeV2Context = _context.Volley.Include(v => v.Attacker);
-            return View(await ironDomeV2Context.ToListAsync());
+            return View(await _context.Defender.ToListAsync());
         }
 
-        // GET: Volleys/Details/5
+        // GET: Defenders/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -34,44 +33,39 @@ namespace IronDomeV2.Controllers
                 return NotFound();
             }
 
-            var volley = await _context.Volley
-                .Include(v => v.Attacker)
+            var defender = await _context.Defender
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (volley == null)
+            if (defender == null)
             {
                 return NotFound();
             }
-            
-            return View(volley);
+
+            return View(defender);
         }
 
-        // GET: Volleys/Create
-        public IActionResult Create(int id)
+        // GET: Defenders/Create
+        public IActionResult Create()
         {
-            ViewData["MethodOfAttacks"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
             return View();
         }
 
-        // POST: Volleys/Create
+        // POST: Defenders/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AttackerId")] Volley volley)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Defender defender)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(volley);
+                _context.Add(defender);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-
-            ViewBag["MethodOfAttack"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
-            return View(volley.AttackerId);
+            return View(defender);
         }
 
-        // GET: Volleys/Edit/5
+        // GET: Defenders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,23 +73,22 @@ namespace IronDomeV2.Controllers
                 return NotFound();
             }
 
-            var volley = await _context.Volley.FindAsync(id);
-            if (volley == null)
+            var defender = await _context.Defender.FindAsync(id);
+            if (defender == null)
             {
                 return NotFound();
             }
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Id", volley.AttackerId);
-            return View(volley);
+            return View(defender);
         }
 
-        // POST: Volleys/Edit/5
+        // POST: Defenders/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,AttackerId")] Volley volley)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Defender defender)
         {
-            if (id != volley.Id)
+            if (id != defender.Id)
             {
                 return NotFound();
             }
@@ -104,12 +97,12 @@ namespace IronDomeV2.Controllers
             {
                 try
                 {
-                    _context.Update(volley);
+                    _context.Update(defender);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!VolleyExists(volley.Id))
+                    if (!DefenderExists(defender.Id))
                     {
                         return NotFound();
                     }
@@ -120,11 +113,10 @@ namespace IronDomeV2.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Id", volley.AttackerId);
-            return View(volley);
+            return View(defender);
         }
 
-        // GET: Volleys/Delete/5
+        // GET: Defenders/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -132,35 +124,34 @@ namespace IronDomeV2.Controllers
                 return NotFound();
             }
 
-            var volley = await _context.Volley
-                .Include(v => v.Attacker)
+            var defender = await _context.Defender
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (volley == null)
+            if (defender == null)
             {
                 return NotFound();
             }
 
-            return View(volley);
+            return View(defender);
         }
 
-        // POST: Volleys/Delete/5
+        // POST: Defenders/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var volley = await _context.Volley.FindAsync(id);
-            if (volley != null)
+            var defender = await _context.Defender.FindAsync(id);
+            if (defender != null)
             {
-                _context.Volley.Remove(volley);
+                _context.Defender.Remove(defender);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool VolleyExists(int id)
+        private bool DefenderExists(int id)
         {
-            return _context.Volley.Any(e => e.Id == id);
+            return _context.Defender.Any(e => e.Id == id);
         }
     }
 }

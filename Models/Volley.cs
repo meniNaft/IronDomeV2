@@ -1,7 +1,10 @@
-﻿namespace IronDomeV2.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace IronDomeV2.Models;
 
 public class Volley
 {
+    [Display(Name = "Volley Name")]
     public int Id { get; set; }
 
     // Foreign key
