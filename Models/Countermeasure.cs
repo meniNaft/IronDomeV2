@@ -1,4 +1,5 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace IronDomeV2.Models;
@@ -8,7 +9,7 @@ public class Countermeasure
     public int Id { get; set; }
     public string Name { get; set; }
     public double Range { get; set; }
-
+    [Display(Name = "Defender Name")]
     public int DefenderId { get; set; }
     public Defender Defender { get; set; }
     public double Velocity { get; set; } // Velocity of the countermeasure
