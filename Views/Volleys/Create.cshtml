@@ -11,14 +11,39 @@
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <table class="table">
+                <thread>
+                    <tr>
+                        <th> שם הטיל</th>
+                        <th> כמות</th>
+                    </tr>
+                </thread>>
+                <tbody>
+                    @foreach(var Til in Model)
+                    {
+                        <tr>
+                            <td>@Til</td>
+                            <td><input type="number" /></td>
+
+
+                        </tr>
+                    }
+
+                </tbody>
+
+
+
+            </table>
+            <input type="submit" value="Create" class="btn btn-primary" />
+
+           @*  <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="AttackerId" class="control-label"></label>
                 <select asp-for="AttackerId" class ="form-control" asp-items="ViewBag.AttackerId"></select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
+            </div> *@
         </form>
     </div>
 </div>
