@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using IronDomeV2.Data;
 using IronDomeV2.Models;
+using IronDomeV2.ViewModel;
 
 namespace IronDomeV2.Controllers
 {
@@ -48,7 +49,7 @@ namespace IronDomeV2.Controllers
         // GET: Volleys/Create
         public async Task<IActionResult> Create(int id)
         {
-            //ViewData["MethodOfAttackTemplate"] =await _context.MethodOfAttackTemplate.ToListAsync();
+            ViewData["MethodOfAttackTemplate"] = await _context.MethodOfAttackTemplate.ToListAsync();
             ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
             return View();
         }
@@ -58,7 +59,7 @@ namespace IronDomeV2.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,AttackerId")] Volley volley)
+        public async Task<IActionResult> Create([Bind("Id,AttackerId")] VMVolley vMVolley)
         {
             if (ModelState.IsValid)
             {
