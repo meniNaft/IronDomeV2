@@ -41,12 +41,12 @@ namespace IronDomeV2.Controllers
             {
                 return NotFound();
             }
-
+            
             return View(volley);
         }
 
         // GET: Volleys/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             ViewData["MethodOfAttacks"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
             ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
@@ -66,8 +66,9 @@ namespace IronDomeV2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Id", volley.AttackerId);
-            return View(volley);
+
+            ViewBag["MethodOfAttack"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
+            return View(volley.AttackerId);
         }
 
         // GET: Volleys/Edit/5
