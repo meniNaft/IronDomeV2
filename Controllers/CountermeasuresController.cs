@@ -49,8 +49,9 @@ namespace IronDomeV2.Controllers
         // GET: Countermeasures/Create
         public IActionResult Create()
         {
-            ViewData["DefenderId"] = new SelectList(_context.Defender, "Id", "Id");
-            ViewData["MethodOfAttackId"] = new SelectList(_context.MethodOfAttack, "Id", "Id");
+            
+            ViewData["DefenderId"] = new SelectList(_context.Defender, "Id", "Name");
+            ViewData["MethodOfAttackId"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
             return View();
         }
 

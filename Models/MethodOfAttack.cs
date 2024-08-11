@@ -14,8 +14,8 @@ public class MethodOfAttack
     public DateTime? TimeOfLaunch { get; set; } // Time when the method was launched
 
     // Foreign key
-    public int VolleyId { get; set; }
-    public Volley Volley { get; set; }
+    public int? VolleyId { get; set; }
+    public Volley? Volley { get; set; }
 
     // Navigation property for countermeasure
     public Countermeasure? Countermeasure { get; set; }

@@ -48,7 +48,8 @@ namespace IronDomeV2.Controllers
         // GET: Volleys/Create
         public IActionResult Create(int id)
         {
-            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Id");
+            ViewData["MethodOfAttacks"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
+            ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
             return View();
         }
 
