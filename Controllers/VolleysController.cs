@@ -46,9 +46,9 @@ namespace IronDomeV2.Controllers
         }
 
         // GET: Volleys/Create
-        public IActionResult Create(int id)
+        public async Task<IActionResult> Create(int id)
         {
-            ViewData["MethodOfAttacks"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
+            ViewData["MethodOfAttacks"] =await _context.MethodOfAttack.ToListAsync();
             ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
             return View();
         }
@@ -67,8 +67,8 @@ namespace IronDomeV2.Controllers
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewBag["MethodOfAttack"] = new SelectList(_context.MethodOfAttack, "Id", "Name");
-            return View(volley.AttackerId);
+            ViewData["MethodOfAttack"] =await _context.MethodOfAttack.ToListAsync();
+            return View(volley);
         }
 
         // GET: Volleys/Edit/5
