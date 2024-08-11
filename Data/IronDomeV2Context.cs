@@ -18,5 +18,6 @@ namespace IronDomeV2.Data
         public DbSet<IronDomeV2.Models.Volley> Volley { get; set; } = default!;
         public DbSet<IronDomeV2.Models.MethodOfAttack> MethodOfAttack { get; set; } = default!;
         public DbSet<IronDomeV2.Models.Defender> Defender { get; set; } = default!;
+        public DbSet<IronDomeV2.Models.Countermeasure> Countermeasure { get; set; } = default!;
     }
 }
