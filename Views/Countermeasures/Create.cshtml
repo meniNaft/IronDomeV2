@@ -1,4 +1,4 @@
-﻿@model IronDomeV2.Models.MethodOfAttack
+﻿@model IronDomeV2.Models.Countermeasure
 
 @{
     ViewData["Title"] = "Create";
@@ -6,16 +6,12 @@
 
 <h1>Create</h1>
 
-<h4>MethodOfAttack</h4>
+<h4>Countermeasure</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="VolleyId" class="control-label"></label>
-                <select asp-for="VolleyId" class="form-control" asp-items="ViewBag.VolleyId"></select>
-            </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -27,17 +23,23 @@
                 <span asp-validation-for="Range" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="DefenderId" class="control-label"></label>
+                <select asp-for="DefenderId" class ="form-control" asp-items="ViewBag.DefenderId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Velocity" class="control-label"></label>
                 <input asp-for="Velocity" class="form-control" />
                 <span asp-validation-for="Velocity" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Distance" class="control-label"></label>
-                <input asp-for="Distance" class="form-control" />
-                <span asp-validation-for="Distance" class="text-danger"></span>
+                <label asp-for="LaunchTime" class="control-label"></label>
+                <input asp-for="LaunchTime" class="form-control" />
+                <span asp-validation-for="LaunchTime" class="text-danger"></span>
             </div>
-            
-            
+            <div class="form-group">
+                <label asp-for="MethodOfAttackId" class="control-label"></label>
+                <select asp-for="MethodOfAttackId" class ="form-control" asp-items="ViewBag.MethodOfAttackId"></select>
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
