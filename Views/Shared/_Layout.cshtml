@@ -25,29 +25,22 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Attackers" asp-action="Index">War Games</a>
+                <div class="d-flex justify-content-between w-100">
+                    <a class="navbar-brand text-primary" asp-area="" asp-controller="" asp-action="Index">Blue Team</a>
+                    <a class="navbar-brand mx-auto " asp-area="" asp-controller="Attackers" asp-action="Index">War Games</a>
+                    <a class="navbar-brand text-danger" asp-area="" asp-controller="Attackers" asp-action="Index">Red Team</a>
+                </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav ms-auto">
-                        @foreach (var item in controllerActionList)
-                        {
-                            string controller = item.Key;
-                            var actions = item.Value;
-                            foreach (var action in actions)
-                            {
-                                string actionName = action.Key;
-                                string displayName = action.Value;
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-area="" asp-controller="@controller" asp-action="@actionName">@displayName</a>
-                                </li>
-                            }
-                        }
-                    </ul>
+                    <div class="navbar-nav ms-auto">
+                        <!-- אפשר להוסיף כאן לינקים נוספים אם צריך -->
+                    </div>
                 </div>
             </div>
         </nav>
+
     </header>
     <div class="container flex-grow-1">
         <main role="main">
