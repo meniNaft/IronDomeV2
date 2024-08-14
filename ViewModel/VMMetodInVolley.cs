@@ -4,7 +4,7 @@ namespace IronDomeV2.ViewModel
 {
     public class VMMetodInVolley
     {
-        public int cunet {  get; set; }
+        public int count {  get; set; }
         public MethodOfAttackTemplate metod { get; set; }
     }
 }

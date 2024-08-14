@@ -48,8 +48,9 @@ namespace IronDomeV2.Controllers
         // GET: Volleys/Create
         public async Task<IActionResult> Create(int id)
         {
-            //ViewData["MethodOfAttackTemplate"] =await _context.MethodOfAttackTemplate.ToListAsync();
+            ViewData["MethodOfAttackTemplate"] =await _context.MethodOfAttackTemplate.ToListAsync();
             ViewData["AttackerId"] = new SelectList(_context.Attacker, "Id", "Name");
+
             return View();
         }
 
